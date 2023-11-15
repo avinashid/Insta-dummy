@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 const comment = mongoose.Schema({
   username: {
     type: String,
+    required:[true,"please add username"]
   },
   comment: {
     type: String,
+    required: [true, "Please add comment"],
   },
 });
 

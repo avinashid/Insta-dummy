@@ -87,9 +87,48 @@ const postLike = async (req, res) => {
   }
 };
 
+const comment = async (req, res) => {
+  try {
+    const { username, postId, comment } = req.body;
+    const post = await InstaPost.findOne({
+      _id: postId,
+    });
+    if (!post) return res.status(401).json({ message: "Post not found" });
+    if (post) {
+      post.comments.push({
+        username,
+        comment,
+      });
+      await post.save();
+      res.status(201).json(post);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+const deleteComment = async (req, res) => {
+  try {
+    const { postId, commentId } = req.body;
+    const post = await InstaPost.findOne({
+      _id: postId,
+    });
+    if (!post) return res.status(401).json({ message: "Post not found" });
+
+    post.comments.pull({
+      _id: commentId,
+    });
+    await post.save();
+    return res.status(201).json(post);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   getPost,
   addPost,
   deletePost,
   postLike,
+  comment,
+  deleteComment,
 };
