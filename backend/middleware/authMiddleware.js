@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../models/userModels");
+const InstaUser = require("../models/userModels");
 
 const protect = async (req, res, next) => {
   let token;
@@ -15,14 +15,15 @@ const protect = async (req, res, next) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
       // // Get user from the token
-      // req.user =await User.findById(decoded.id).select("-password");
+      req.user = await InstaUser.findById(decoded.id).select("-password");
 
       next();
     } catch (error) {
       res.status(401).json({ error });
     }
+  } else {
+    res.status(401).json({ message: "Please provide a bearer token" });
   }
-  res.status(401).json({ message: "Please provide a bearer token" });
 };
 
 module.exports = { protect };

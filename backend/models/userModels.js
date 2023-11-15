@@ -1,10 +1,5 @@
 const mongoose = require("mongoose");
 
-const commentId = mongoose.Schema({
-  id: {
-    type: mongoose.Types.ObjectId,
-  },
-});
 
 const userSchema = mongoose.Schema(
   {
@@ -20,7 +15,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
-    posts: [commentId],
+    posts: [String],
   },
   {
     timestamps: true,
