@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const InstaUser = require("../models/userModels");
-const UserData = require("../models/userData");
 const { ObjectId } = require("mongoose").Types;
 
 // @desc Register new user
