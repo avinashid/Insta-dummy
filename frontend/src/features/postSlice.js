@@ -5,12 +5,11 @@ const initialState = {
   posts: [],
 };
 
-export const userSlice = createSlice({
+export const postSlice = createSlice({
   name: "post",
   initialState,
   reducers: {},
 });
 
-export const { toggleExpandedSidebar } = userSlice.actions;
 
-export default userSlice.reducer;
+export default postSlice.reducer;

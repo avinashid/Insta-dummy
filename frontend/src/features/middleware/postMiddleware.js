@@ -21,7 +21,7 @@ export const fetchPost = createAsyncThunk("posts/me", async () => {
   }
 });
 
-export const fetchPosts =
+export const fetchPostMiddleware =
   ({ dispatch }) =>
   (next) =>
   async (action) => {

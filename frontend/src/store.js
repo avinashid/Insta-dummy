@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userSlice from "./features/userSlice";
-import { fetchUsers } from "./features/middleware/userMiddleware";
-import { fetchPosts } from "./features/middleware/postMiddleware";
+import { fetchUserMiddleware } from "./features/middleware/userMiddleware";
+import { fetchPostMiddleware } from "./features/middleware/postMiddleware";
 import postSlice from "./features/postSlice";
 
 const store = configureStore({
@@ -10,7 +10,7 @@ const store = configureStore({
     post: postSlice,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat([fetchUsers,fetchPosts]),
+    getDefaultMiddleware().concat([fetchPostMiddleware,fetchUserMiddleware]),
 });
 
 store.dispatch({ type: "@@INIT" });

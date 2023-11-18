@@ -35,7 +35,7 @@ export const fetchUser = createAsyncThunk("users/me", async () => {
   }
 });
 
-export const fetchMiddleware =
+export const fetchUserMiddleware =
   ({ dispatch }) =>
   (next) =>
   async (action) => {
