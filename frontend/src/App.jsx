@@ -5,9 +5,10 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import store from "./store";
-import { Provider } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchPost } from "./features/middleware/postMiddleware";
+import { fetchUser } from "./features/middleware/userMiddleware";
 
 const router = createBrowserRouter([
   {
@@ -18,18 +19,17 @@ const router = createBrowserRouter([
       { path: "/", element: <PostContainer /> },
       { path: "signin", element: <Signin /> },
       { path: "signup", element: <Signup /> },
-      
-
     ],
   },
 ]);
 
 const App = () => {
-  return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPost());
+    dispatch(fetchUser());
+  }, []);
+  return <RouterProvider router={router} />;
 };
 
 export default App;

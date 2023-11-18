@@ -1,4 +1,3 @@
-// middleware.js
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 import axios from "axios";
@@ -34,15 +33,3 @@ export const fetchUser = createAsyncThunk("users/me", async () => {
     return user;
   }
 });
-
-export const fetchUserMiddleware =
-  ({ dispatch }) =>
-  (next) =>
-  async (action) => {
-    if (action.type === "@@INIT") {
-      const userInfo = await dispatch(fetchUser());
-      console.log(userInfo.payload);
-      dispatch({ type: "users/me", payload: userInfo.payload });
-    }
-    return next(action);
-  };

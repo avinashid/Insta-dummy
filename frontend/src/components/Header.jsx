@@ -3,13 +3,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 
 const Header = () => {
   const user = useSelector((state) => state.user);
-  const posts = useSelector((state) => state.post);
-  const isLoading = useSelector(s=>s.post.isLoading)
-  console.log(posts);
-  console.log(isLoading,"her")
-  if(!isLoading) console.log("print this")
-  // console.log(user);
-  if(!user.isLoading) console.log("user load",user.isLoading)
+  console.log(user);
   return (
     <div className="flex px-4 py-3 justify-between items-center rounded-md border-b-cmid border-b ">
       <div className="text-xl font-serif">InstaCode</div>
