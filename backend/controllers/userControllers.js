@@ -48,9 +48,9 @@ const registerUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
-    res.status(400).json({ message: "Plase fill email and password" });
+    res.status(400).json({ message: "Plase fill username and password" });
   } else {
-    const user = await InstaUser.findOne({ email });
+    const user = await InstaUser.findOne({ username });
     if (user && (await bcrypt.compare(password, user.password))) {
       res.status(200);
       res.json({
@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
         token: generateToken(user._id),
       });
     } else {
-      res.status(400).json({ message: "Invalid email or password" });
+      res.status(400).json({ message: "Invalid username or password" });
     }
   }
 };

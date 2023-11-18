@@ -5,7 +5,9 @@ const Homepage = () => {
   return (
     <div>
       <Header />
-      <Outlet />
+      <div className="flex justify-center my-10">
+        <Outlet />
+      </div>
     </div>
   );
 };
