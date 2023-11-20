@@ -28,7 +28,7 @@ const Post = ({ post }) => {
     };
     try {
       const res = await axios.post(
-        "https://avinashid.github.io/Insta-dummy/api/posts/postlike",
+        "https://insta-dummy.onrender.com/api/posts/postlike",
         {
           username: user.username,
           postId: post._id,
