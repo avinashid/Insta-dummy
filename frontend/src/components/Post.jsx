@@ -8,6 +8,7 @@ import { fetchPost } from "../features/middleware/postMiddleware";
 import { useNavigate } from "react-router-dom";
 import CommentContainer from "./CommentContainer";
 import NewComment from "./NewComment";
+import { MdDelete } from "react-icons/md";
 
 const Post = ({ post }) => {
   const navigate = useNavigate();
@@ -34,18 +35,41 @@ const Post = ({ post }) => {
         },
         { headers }
       );
-      console.log(res);
       dispatch(fetchPost());
     } catch (error) {
       console.log(error);
     }
   };
-  const postPhoto =
-    // "https://mir-s3-cdn-cf.behance.net/project_modules/1400/77119156627721.59b69c3dbd8de.jpg";
-    console.log(post);
+  const handleDelete = async () => {
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${user.token}`,
+    };
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/posts/delete",
+        {
+          username: post.username,
+          postId: post._id,
+        },
+        { headers }
+      );
+      dispatch(fetchPost());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className="flex flex-col gap-3">
-      <div className="flex flex-1 flex-col p-4 border rounded-md max-w-sm gap-6 ">
+      <div className="flex flex-1 flex-col p-4 border rounded-md max-w-sm gap-6 relative">
+        {(user.username === post.username || user.username === "admin") && (
+          <div
+            onClick={handleDelete}
+            className="absolute text-2xl text-red-600 cursor-pointer right-3 bg-white rounded-full p-2 "
+          >
+            <MdDelete />
+          </div>
+        )}
         <div className="header">
           <div>
             <div className="text-lg text-clight">{post.username}</div>
@@ -57,7 +81,7 @@ const Post = ({ post }) => {
           </div>
         </div>
         <div className="text-sm font-open">{post.postDescription}</div>
-        {postPhoto && <img className="rounded" src={postPhoto} />}
+        {post.postPhoto && <img className="rounded" src={post.postPhoto} />}
         <div className="comment"></div>
       </div>
       <div className=" text-white rounded-b-xl flex-1 flex gap-3">
@@ -68,14 +92,21 @@ const Post = ({ post }) => {
           {`${(like && "Liked") || "Like"} ${post.likeUser.length}`}
         </button>
         <button
-          onClick={() => setShowNewComment((e) => !e)}
+          onClick={() => {
+            if (!user.isLoggedIn) navigate("/signin");
+            setShowNewComment((e) => !e);
+          }}
           className="bg-blue-500 flex-1 rounded-md  "
         >
           {showNewComment ? "Cancel" : "Comment"}
         </button>
       </div>
       {post.comments.length != 0 && (
-        <CommentContainer comments={post.comments} />
+        <CommentContainer
+          comments={post.comments}
+          postId={post._id}
+          postUser={post.username}
+        />
       )}
       {showNewComment && <NewComment postId={post._id} />}
     </div>

@@ -38,13 +38,13 @@ const Signin = () => {
           required
           type="text"
           autoComplete="off"
-          className=" bg-slate-800:text-red-500 bg-transparent border p-3 rounded-md"
+          className=" bg-sky-900  text-sm  p-3 rounded-md"
           onChange={(e) => (formData.username = e.target.value)}
           placeholder="Enter Username"
         />
         <input
           required
-          className=" bg-slate-800:text-red-500 bg-transparent border p-3 rounded-md"
+          className=" bg-sky-900 text-sm p-3 rounded-md"
           type="password"
           onChange={(e) => (formData.password = e.target.value)}
           placeholder="Enter password"
@@ -65,7 +65,7 @@ const Signin = () => {
       <button
         className=" bg-transparent border p-3  rounded-md hover:bg-slate-600"
         type="submit"
-        onClick={()=>navigate("/signup")}
+        onClick={() => navigate("/signup")}
       >
         Sign Up
       </button>

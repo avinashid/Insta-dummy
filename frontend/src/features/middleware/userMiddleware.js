@@ -11,7 +11,6 @@ export const fetchUser = createAsyncThunk("users/me", async () => {
     isLoggedIn: false,
     isLoading: false,
   };
-  console.log(token, "instaToken");
   try {
     const response = await axios.get("http://localhost:5000/api/users/me", {
       headers: {

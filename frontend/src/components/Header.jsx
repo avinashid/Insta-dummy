@@ -16,7 +16,6 @@ const Header = () => {
   ) : (
     <div onClick={() => navigate("signin")}>Sign In</div>
   );
-  console.log(user);
   return (
     <div className="flex px-4 py-3 justify-between items-center rounded-md border-b-cmid border-b ">
       <div

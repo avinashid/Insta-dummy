@@ -20,10 +20,11 @@ const addPost = async (req, res) => {
       return res.status(401).json({
         message: "Username or des missing",
       });
+
     const post = await InstaPost.create({
       username,
       postDescription,
-      postPhoto: postPhoto || "",
+      postPhoto,
     });
     if (post) {
       const updateUserPost = await InstaUser.findOne({
@@ -107,8 +108,10 @@ const comment = async (req, res) => {
   }
 };
 const deleteComment = async (req, res) => {
+  const { postId, commentId } = req.body;
+  if (!postId || !commentId)
+    return res.status(400).json({ message: "No credential" });
   try {
-    const { postId, commentId } = req.body;
     const post = await InstaPost.findOne({
       _id: postId,
     });

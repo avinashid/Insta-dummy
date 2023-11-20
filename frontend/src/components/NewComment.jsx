@@ -26,7 +26,6 @@ const NewComment = ({ postId }) => {
         },
         { headers }
       );
-      console.log(res.data);
       dispatch(fetchPost());
       setComment("");
     } catch (error) {
@@ -37,6 +36,7 @@ const NewComment = ({ postId }) => {
     <div className="p-4 py-2 border border-blue-500 rounded-2xl">
       <form className="flex justify-between" onSubmit={handleComment}>
         <input
+        required
           value={comment}
           onChange={(e) => setComment(e.target.value)}
           placeholder="New Comment"

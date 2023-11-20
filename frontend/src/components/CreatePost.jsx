@@ -10,12 +10,32 @@ const CreatePost = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [err, setErr] = useState("");
   const dispatch = useDispatch();
-  console.log(user.isLoggedIn);
 
   const handleImageChange = (event) => {
     const file = event.target.files[0];
-    setSelectedImage(file);
-    console.log(file);
+
+    if (file) {
+      const fileSize = file.size;
+
+      const maxSize = 2 * 1024 * 1024;
+
+      if (fileSize <= maxSize) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          console.log(reader.result);
+          setSelectedImage(reader.result);
+          setErr("");
+        };
+
+        reader.onerror = () => {
+          setErr("Something went wrong");
+        };
+      } else {
+        setErr("File size exceeds the limit of 2MB");
+      }
+    }
   };
 
   const handlePost = async (e) => {
@@ -25,15 +45,16 @@ const CreatePost = () => {
       return;
     }
     const headers = {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${user.token}`,
     };
+
     try {
       const res = await axios.post(
         "http://localhost:5000/api/posts/",
         {
           username: user.username,
           postDescription: textArea,
+          postPhoto: selectedImage,
         },
         { headers }
       );
@@ -43,11 +64,10 @@ const CreatePost = () => {
       dispatch(fetchPost());
     } catch (error) {
       setErr("Something went wrong");
-      console.log(error);
     }
   };
   return (
-    <div className="p-4 border rounded flex gap-4  max-w-sm flex-col">
+    <div className="p-4 border rounded flex gap-4 w-screen max-w-sm flex-col">
       <div className="">Create a New Post</div>
       <div className="text-lg text-clight">{user.username}</div>
       <form className="flex flex-col gap-4" onSubmit={handlePost}>
@@ -68,11 +88,7 @@ const CreatePost = () => {
           className="hidden"
         />
         {selectedImage && (
-          <img
-            src={URL.createObjectURL(selectedImage)}
-            alt="Selected"
-            className="mt-2 max-w-full"
-          />
+          <img src={selectedImage} alt="Selected" className="mt-2 max-w-full" />
         )}
         {selectedImage && (
           <button
