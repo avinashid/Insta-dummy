@@ -7,7 +7,7 @@ import { fetchPost } from "../features/middleware/postMiddleware";
 const Comment = ({ comment, postUser, postId }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  
+
   const handleDelete = async () => {
     const headers = {
       "Content-Type": "application/json",
@@ -15,7 +15,7 @@ const Comment = ({ comment, postUser, postId }) => {
     };
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/posts/deleteComment",
+        "https://insta-dummy.onrender.com/api/posts/deleteComment",
         {
           postId,
           commentId: comment._id,
@@ -24,12 +24,17 @@ const Comment = ({ comment, postUser, postId }) => {
       );
       dispatch(fetchPost());
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   const isDelete =
     user.username === comment.username || user.username === postUser ? (
-      <div onClick={handleDelete} className="text-xs text-red-700 cursor-pointer indent-1">Delete</div>
+      <div
+        onClick={handleDelete}
+        className="text-xs text-red-700 cursor-pointer indent-1"
+      >
+        Delete
+      </div>
     ) : (
       ""
     );

@@ -12,7 +12,7 @@ export const fetchUser = createAsyncThunk("users/me", async () => {
     isLoading: false,
   };
   try {
-    const response = await axios.get("http://localhost:5000/api/users/me", {
+    const response = await axios.get("https://insta-dummy.onrender.com/api/users/me", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

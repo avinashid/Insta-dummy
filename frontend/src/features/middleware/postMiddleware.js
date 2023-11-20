@@ -7,7 +7,7 @@ export const fetchPost = createAsyncThunk("posts/me", async () => {
     posts: [],
   };
   try {
-    const response = await axios.get("http://localhost:5000/api/posts/me", {});
+    const response = await axios.get("https://insta-dummy.onrender.com/api/posts/me", {});
     const data = response.data;
 
     return {

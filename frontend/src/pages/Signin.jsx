@@ -17,7 +17,7 @@ const Signin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/users/login", {
+      const res = await axios.post("https://insta-dummy.onrender.com/api/users/login", {
         username: formData.username,
         password: formData.password,
       });

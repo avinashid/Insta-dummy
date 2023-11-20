@@ -50,7 +50,7 @@ const CreatePost = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/posts/",
+        "https://insta-dummy.onrender.com/api/posts/",
         {
           username: user.username,
           postDescription: textArea,

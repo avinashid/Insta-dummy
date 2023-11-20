@@ -47,7 +47,7 @@ const Post = ({ post }) => {
     };
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/posts/delete",
+        "https://insta-dummy.onrender.com/api/posts/delete",
         {
           username: post.username,
           postId: post._id,
